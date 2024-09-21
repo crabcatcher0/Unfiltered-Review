@@ -32,9 +32,7 @@ def home(request: HttpRequest):
 )
 def create_products(request: HttpRequest, payload: PostProductSchema):
     try:
-        product = Product(
-            name=payload.name, made_by=payload.made_by, posted_on=payload.posted_on
-        )
+        product = Product(name=payload.name, made_by=payload.made_by)
         product.save()
         return 200, GenericSchema(detail="Successfully created product")
     except Exception as e:
@@ -46,7 +44,7 @@ def create_products(request: HttpRequest, payload: PostProductSchema):
     response={200: GenericSchema, 400: GenericSchema},
     tags=["Products"],
 )
-def partial_update(rquest: HttpRequest, id: int, payload: PartialUpdateProduct):
+def partial_update(request: HttpRequest, id: int, payload: PartialUpdateProduct):
     try:
         product = get_object_or_404(Product, id=id)
         for attr, value in payload.dict(exclude_unset=True).items():

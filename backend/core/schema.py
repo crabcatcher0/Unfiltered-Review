@@ -34,15 +34,17 @@ class ReviewSchema(Schema):
 ###### POST Model Schema ######
 
 
-class PostProductSchema(Schema):
+class PostProductSchema(BaseModel):
     name: str
     made_by: str
-    posted_on: datetime
+
+    class Config:
+        arbitrary_types_allowed = True
 
 
 ###### PATCH Model Schema #######
 
 
 class PartialUpdateProduct(Schema):
-    name: str
-    made_by: str
+    name: Optional[str]
+    made_by: Optional[str]

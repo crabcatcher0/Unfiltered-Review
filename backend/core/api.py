@@ -1,5 +1,6 @@
 from typing import List
 
+from django.contrib.auth.models import User
 from django.http import HttpRequest
 from django.shortcuts import get_object_or_404
 
@@ -17,12 +18,13 @@ from core.schema import GenericSchema
 from core.schema import ReviewSchema
 from core.schema import PostReviewSchema
 from core.schema import PartialUpdateReview
+from core.schema import PostUserRegisterSchema
 
 
 session_auth = django_auth
 
 
-api = NinjaAPI(docs_url="/docs/", auth=(session_auth))
+api = NinjaAPI(docs_url="/docs/")
 
 
 @api.get(path="/home/", tags=["Home"])
@@ -74,7 +76,7 @@ def retrive_products(request: HttpRequest, id: int):
     return get_object_or_404(Product, id=id)
 
 
-@api.delete("/products/delete/{id}", response={200: GenericSchema}, tags=["Products"])
+@api.delete("/products/delete/{id}/", response={200: GenericSchema}, tags=["Products"])
 def delete_product(request: HttpRequest, id: int):
     product = get_object_or_404(Product, id=id)
     product.delete()
@@ -163,3 +165,22 @@ def delete_review(request: HttpRequest, id: int):
     return 200, GenericSchema(
         detail=f"Review with the ID: '{id}' deleted successfully."
     )
+
+
+@api.post(
+    "/users/register/",
+    response={200: GenericSchema, 400: GenericSchema},
+    tags=["Users"],
+)
+def register_user(request: HttpRequest, payload: PostUserRegisterSchema):
+    try:
+        user = User(
+            username=payload.username,
+            email=payload.email,
+        )
+        user.set_password(payload.password)
+        user.full_clean()
+        user.save()
+        return 200, GenericSchema(detail="User Registered successfully.")
+    except Exception as e:
+        return 400, GenericSchema(detail=str(e))

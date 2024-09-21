@@ -1,0 +1,1 @@
+{"type":"object","properties":{"rating":{"anyOf":[{"type":"integer"},{"type":"null"}],"title":"Rating"},"comment":{"anyOf":[{"type":"string"},{"type":"null"}],"title":"Comment"}},"title":"PartialUpdateReview","x-readme-ref-name":"PartialUpdateReview"}

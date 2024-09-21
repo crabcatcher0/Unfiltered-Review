@@ -24,11 +24,12 @@ class ProductSchema(Schema):
 
 
 class ReviewSchema(Schema):
-    product: int
-    user: int
-    rating: int = Field(..., ge=0, le=5)
-    comment: Optional[str] = None
-    created_at: Optional[datetime] = None
+    id: int
+    product: str
+    user: str
+    rating: int
+    comment: str
+    created_at: datetime
 
 
 ###### POST Model Schema ######
@@ -38,13 +39,22 @@ class PostProductSchema(BaseModel):
     name: str
     made_by: str
 
-    class Config:
-        arbitrary_types_allowed = True
+
+class PostReviewSchema(BaseModel):
+    product: int
+    user: int
+    rating: int = Field(..., ge=0, le=5)
+    comment: Optional[str] = None
 
 
 ###### PATCH Model Schema #######
 
 
 class PartialUpdateProduct(Schema):
-    name: Optional[str]
-    made_by: Optional[str]
+    name: Optional[str] = None
+    made_by: Optional[str] = None
+
+
+class PartialUpdateReview(Schema):
+    rating: Optional[int] = None
+    comment: Optional[str] = None

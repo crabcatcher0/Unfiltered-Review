@@ -1,24 +1,21 @@
-import '@radix-ui/themes/styles.css';
-import {Flex, Button, Link, Checkbox, Switch } from '@radix-ui/themes';
+import React from 'react';
+import { Link } from 'react-router-dom';
+import './Navbar.css';
 
-
-
-export default function Navbar() {
+const Navbar: React.FC = () => {
     return (
-        <Flex align="center" gap="4" wrap="wrap">
-        <Flex align="center" gap="3" wrap="wrap">
-            <Button>Button</Button>
-            <Button asChild>
-            <a href="#">Link</a>
-            </Button>
-        </Flex>
-        <Button variant="ghost">Ghost button</Button>
-        <Link href="#" size="2">
-            Link
-        </Link>
-        <Checkbox defaultChecked />
-        <Switch defaultChecked />
-        <Switch defaultChecked disabled />
-        </Flex>
+        <nav className="navbar">
+            <div className="logo">UFRU</div>
+            <div className="nav-links">
+                <Link to="/" className="nav-item">
+                    Home
+                </Link>
+                <Link to="/products" className="nav-item">
+                    Products
+                </Link>
+            </div>
+        </nav>
     );
 };
+
+export default Navbar;

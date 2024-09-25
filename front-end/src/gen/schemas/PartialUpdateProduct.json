@@ -1,1 +1,0 @@
-{"type":"object","properties":{"name":{"anyOf":[{"type":"string"},{"type":"null"}],"title":"Name"},"made_by":{"anyOf":[{"type":"string"},{"type":"null"}],"title":"Made By"}},"title":"PartialUpdateProduct","x-readme-ref-name":"PartialUpdateProduct"}

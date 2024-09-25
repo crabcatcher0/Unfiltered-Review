@@ -1,1 +1,0 @@
-{"type":"object","properties":{"username":{"type":"string","title":"Username"},"password":{"type":"string","title":"Password"},"email":{"type":"string","title":"Email"}},"required":["username","password","email"],"title":"PostUserRegisterSchema","x-readme-ref-name":"PostUserRegisterSchema"}

@@ -1,1 +1,0 @@
-{"type":"object","properties":{"product":{"type":"integer","title":"Product"},"user":{"type":"integer","title":"User"},"rating":{"type":"integer","maximum":5,"minimum":0,"title":"Rating"},"comment":{"anyOf":[{"type":"string"},{"type":"null"}],"title":"Comment"}},"required":["product","user","rating"],"title":"PostReviewSchema","x-readme-ref-name":"PostReviewSchema"}

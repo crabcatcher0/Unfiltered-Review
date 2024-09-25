@@ -4,8 +4,6 @@ from django.contrib.auth.models import User
 from django.http import HttpRequest
 from django.shortcuts import get_object_or_404
 
-from silk.profiling.profiler import silk_profile
-
 from ninja import NinjaAPI
 from ninja.security import django_auth
 
@@ -37,7 +35,6 @@ def home(request: HttpRequest):
     response={200: GenericSchema, 400: GenericSchema},
     tags=["Products"],
 )
-@silk_profile(name="Add Products")
 def create_products(request: HttpRequest, payload: PostProductSchema):
     try:
         product = Product(name=payload.name, made_by=payload.made_by)
@@ -52,7 +49,6 @@ def create_products(request: HttpRequest, payload: PostProductSchema):
     response={200: GenericSchema, 400: GenericSchema},
     tags=["Products"],
 )
-@silk_profile(name="Update Products")
 def partial_update(request: HttpRequest, id: int, payload: PartialUpdateProduct):
     try:
         product = get_object_or_404(Product, id=id)
@@ -65,13 +61,11 @@ def partial_update(request: HttpRequest, id: int, payload: PartialUpdateProduct)
 
 
 @api.get(path="/products/", response=List[ProductSchema], tags=["Products"])
-@silk_profile(name="Get Products")
 def list_products(request: HttpRequest):
     return Product.objects.all()
 
 
 @api.get(path="/products/{id}/", response={200: ProductSchema}, tags=["Products"])
-@silk_profile(name="Get Product By Id")
 def retrive_products(request: HttpRequest, id: int):
     return get_object_or_404(Product, id=id)
 
@@ -90,7 +84,6 @@ def delete_product(request: HttpRequest, id: int):
     response={200: GenericSchema, 400: GenericSchema, 404: GenericSchema},
     tags=["Reviews"],
 )
-@silk_profile(name="Add Reviews")
 def create_review(request: HttpRequest, payload: PostReviewSchema):
     product_instance = Product.objects.get(id=payload.product)
     try:
@@ -125,7 +118,6 @@ def update_review(request: HttpRequest, id: int, payload: PartialUpdateReview):
 
 
 @api.get(path="/reviews/", response=List[ReviewSchema], tags=["Reviews"])
-@silk_profile(name="Get Reviews")
 def list_reviews(request: HttpRequest):
     reviews = Review.objects.all()
     review_data = [

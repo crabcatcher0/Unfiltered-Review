@@ -1,1 +1,0 @@
-{"type":"object","properties":{"id":{"type":"integer","title":"Id"},"name":{"type":"string","title":"Name"},"made_by":{"type":"string","title":"Made By"},"posted_on":{"type":"string","format":"date-time","title":"Posted On"}},"required":["id","name","made_by","posted_on"],"title":"ProductSchema","x-readme-ref-name":"ProductSchema"}
